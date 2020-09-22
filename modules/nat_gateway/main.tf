@@ -60,6 +60,7 @@ resource "aws_route_table" "custom_route_table" {
 
   tags = merge({
     Name     = format("%s-%s-%s", var.project_prefix, each.value.rtb_tag_perfix, each.value.zone),
+    AZ       = element(var.availability_zone_names, var.availability_zone_map[each.value.zone]),
     CreateAt = timestamp()
   },
     var.tags

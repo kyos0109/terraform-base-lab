@@ -23,7 +23,14 @@ POLICY
   },
     var.tags
   )
+  lifecycle {
+    ignore_changes = [
+      tags["CreateAt"],
+    ]
+  }
+
 }
+
 
 resource "aws_iam_role_policy_attachment" "AmazonEC2RoleforSSM" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
@@ -31,11 +38,11 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2RoleforSSM" {
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonSSMManagedInstanceCore" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonSSMManagedInstanceCore"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   role       = aws_iam_role.ec2service.name
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonSSMDirectoryServiceAccess" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonSSMDirectoryServiceAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMDirectoryServiceAccess"
   role       = aws_iam_role.ec2service.name
 }

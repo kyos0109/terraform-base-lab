@@ -10,6 +10,12 @@ resource "aws_vpc" "main" {
   },
     var.tags
   )
+
+  lifecycle {
+    ignore_changes = [
+      tags["CreateAt"],
+    ]
+  }
 }
 
 # create igw
@@ -22,4 +28,11 @@ resource "aws_internet_gateway" "igw" {
   },
     var.tags
   )
+
+  lifecycle {
+    ignore_changes = [
+      tags["CreateAt"],
+    ]
+  }
+
 }

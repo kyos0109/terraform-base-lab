@@ -70,11 +70,11 @@ module "nat_gw" {
   tags                    = var.resource_tags
 }
 
-# # create NAT Gateway EIP
-# module "nat_gw_eip" {
-#   source                  = "./modules/eip"
-#   availability_zone_names = module.availability_zones.names
-#   project_prefix          = var.project_config.tag_perfix
-#   eip_config              = var.eip_config
-#   tags                    = var.resource_tags
-# }
+# create subnet route association
+module "subnet_route_association" {
+  source       = "./modules/route_tables_asso"
+  route_tables = module.nat_gw.route_map
+  subnets      = module.subnets.this
+
+  subnet_not_match_rtb_zone_default = module.nat_gw.this_rtb[0].id
+}

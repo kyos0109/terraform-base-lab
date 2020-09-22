@@ -1,4 +1,4 @@
-# custom private subnet
+# custom custom subnet
 resource "aws_subnet" "custom_subnet_zone" {
   for_each = {
     for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet

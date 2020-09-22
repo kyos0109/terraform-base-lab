@@ -18,3 +18,10 @@ output "short_zone_name" {
       element(var.availability_zone_list.*.name_suffix, subnet_key) => subnet.id
   }
 }
+
+output "subnet_info" {
+  value = {
+    for subnet in aws_subnet.public_subnet_zone:
+      format("%s[%s]",subnet.id, subnet.tags.Name) => subnet.cidr_block
+  }
+}
